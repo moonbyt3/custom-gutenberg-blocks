@@ -208,13 +208,15 @@ registerBlockType('custom-blocks/example', {
     };
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "block-example"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "container"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
       tagName: "h2",
-      className: className,
+      className: className + ' block-example__text',
       onChange: onTitleChange,
       value: title,
       placeholder: __('Write your custom message', 'custom-gutenberg-blocks')
-    }));
+    })));
   },
   save: function save() {
     return null;

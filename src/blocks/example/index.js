@@ -23,13 +23,15 @@ registerBlockType( 'custom-blocks/example', {
 
         return (
             <div className="block-example">
-                <RichText
-                    tagName="h2"
-                    className={ className }
-                    onChange={ onTitleChange }
-                    value={ title }
-                    placeholder={ __( 'Write your custom message', 'custom-gutenberg-blocks' ) }
-                />
+                <div className="container">
+                    <RichText
+                        tagName="h2"
+                        className={ className + ' block-example__text' }
+                        onChange={ onTitleChange }
+                        value={ title }
+                        placeholder={ __( 'Write your custom message', 'custom-gutenberg-blocks' ) }
+                    />
+                </div>
             </div>
         );
     },
