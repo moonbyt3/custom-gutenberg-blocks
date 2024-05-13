@@ -1,0 +1,12 @@
+.block-favorite-quote {
+    position: relative;
+    padding: 6.25rem 0;
+}
+
+.favorite-quote__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 5rem;
+    font-weight: bold;
+    opacity: .7;
+}

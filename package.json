@@ -1,0 +1,13 @@
+{
+	"name": "custom-gutenberg-blocks",
+	"version": "1.0.0",
+	"description": "Custom Blocks for Gutenberg",
+	"main": "src/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^12.0.0"
+	}
+}
