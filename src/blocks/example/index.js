@@ -22,7 +22,7 @@ registerBlockType( 'custom-blocks/example', {
         };
 
         return (
-            <div className="block-favorite-quote">
+            <div className="block-example">
                 <RichText
                     tagName="h2"
                     className={ className }

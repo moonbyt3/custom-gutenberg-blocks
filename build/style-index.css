@@ -1,0 +1,11 @@
+.block-example {
+  position: relative;
+  padding: 6.25rem 0;
+}
+
+.block-example__text {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=style-index.css.map*/
