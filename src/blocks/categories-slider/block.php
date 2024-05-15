@@ -25,9 +25,12 @@ class Categories_Slider_Block {
      * @param mixed $attibutes
      * @return string|false
      */
-    public function render_categories_slider_block($attributes) {
+    public function render_categories_slider_block($attributes, $content, $block) {
         $productCategories = $attributes['pickedCategories'] ?? [];
         $slider = $attibutes['slider'] ?? [];
+
+        // Check how many inner blocks are available
+
         ob_start();
 ?>
         <section class="block-categories-slider">
@@ -63,68 +66,9 @@ class Categories_Slider_Block {
                             </div>
                         <?php endif; ?>
                     </div>
-
-                    <?php if (!empty($slider)) : ?>
-                        <div class="categories-slider__items js-slider-images">
-                            <?php while ($slider['slides']) : ?>
-
-                                <?php
-                                $sliderDesktopImage = get_sub_field('categories_slider_desktop_image');
-                                $sliderTabletImage = get_sub_field('categories_slider_tablet_image');
-                                $sliderMobileImage = get_sub_field('categories_slider_mobile_image');
-                                $slideLink = get_sub_field('categories_slider_link');
-                                $slideLabel = get_sub_field('categories_slider_link_label');
-                                $slideTitle = get_sub_field('categories_slider_link_title');
-                                $slideText = get_sub_field('categories_slider_link_text');
-                                ?>
-
-                                <div class="categories-slider__items-slide flexible-bg-image">
-                                    <picture>
-                                        <!-- Picture on large screens-->
-                                        <?php if ($sliderDesktopImage) : ?>
-                                            <source media="(min-width: 1200px)" srcset="<?php echo $sliderDesktopImage['url']; ?>">
-                                        <?php endif; ?>
-                                        <!-- Picture on tablet screens-->
-                                        <?php if ($sliderTabletImage) : ?>
-                                            <source media="(min-width: 768px)" srcset="<?php echo $sliderTabletImage['url']; ?>">
-                                        <?php endif; ?>
-                                        <!-- Picture on screens less than 768px width-->
-                                        <?php if ($sliderMobileImage) : ?>
-                                            <img class="has-cover" src="<?php echo $sliderMobileImage['url']; ?>" alt="<?php echo $sliderDesktopImage['alt'] xor $sliderTabletImage['alt']; ?>">
-                                        <?php else : ?>
-                                            <img class="has-cover" src="<?php echo $sliderDesktopImage['url']; ?>" alt="<?php echo $sliderDesktopImage['alt'] xor $sliderTabletImage['alt']; ?>">
-                                        <?php endif; ?>
-                                    </picture>
-                                    <div class="categories-slider__items-slide-content">
-                                        <?php if ($slideLabel) : ?>
-                                            <div class="categories-slider__items-slide-content-label onsale">
-                                                <span class="categories-slider__items-slide-content-label-text">
-                                                    <?php echo $slideLabel; ?>
-                                                </span>
-                                            </div>
-                                        <?php endif; ?>
-                                        <?php if ($slideTitle) : ?>
-                                            <h2 class="categories-slider__items-slide-content-title bg-blur">
-                                                <?php echo $slideTitle; ?>
-                                            </h2>
-                                        <?php endif; ?>
-                                        <?php if ($slideText) : ?>
-                                            <div class="categories-slider__items-slide-content-text bg-blur">
-                                                <?php echo wp_kses_post($slideText); ?>
-
-                                                <?php
-                                                $link_url = $slideLink['url'];
-                                                $link_title = $slideLink['title'] ? $slideLink['title'] : 'Pročitajte više';
-                                                $link_target = $slideLink['target'] ? $slideLink['target'] : '_self';
-                                                ?>
-                                                <a href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>" class="button"><?php echo esc_html($link_title); ?></a>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            <?php endwhile; ?>
-                        </div>
-                    <?php endif; ?>
+                    <div class="categories-slider__items js-slider-images">
+                        <?php echo $content; ?>
+                    </div>
                 </div>
             </div>
         </section>

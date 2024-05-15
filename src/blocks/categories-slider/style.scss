@@ -24,7 +24,7 @@
 .block-categories-slider__menu {
 	width: 320px;
 
-	@media (above-m) {
+	@media ($below-m) {
 		display: none;
 	}
 }

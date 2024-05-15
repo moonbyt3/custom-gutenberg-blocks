@@ -31,19 +31,70 @@ class Slide_Block {
      * @return string|false
      */
     public function render_slide_block($attributes) {
-        $blockTitle = $attributes['title'] ?? '';
+        $slide = $attributes ?? [];
 
         ob_start();
 ?>
-        <div class="block-slide">
-            <div class="container">
-                <?php if ($blockTitle) : ?>
-                    <h2 class="block-slide__text">
-                        <?php echo $blockTitle; ?>
-                    </h2>
-                <?php endif; ?>
+        <?php if (!empty($slide)) : ?>
+            <?php
+
+            $slideImage = $slide['slideImageBackground'] ?? '';
+            $sliderTabletImageTablet = $slide['slideImageBackgroundTablet'] ?? '';
+            $sliderMobileImageMobile = $slide['slideImageBackgroundMobile'] ?? '';
+            $slideLabel = $slide['slideSubtitle'] ?? '';
+            $slideTitle = $slide['slideTitle'] ?? '';
+            $slideText = $slide['slideText'] ?? '';
+            $slideLink = $slide['slideButtonUrl'] ?? '';
+            $slideLinkText = $slide['slideButtonText'] ?? '';
+            ?>
+
+            <div class="categories-slider__items-slide flexible-bg-image">
+                <picture>
+                    <!-- Picture on large screens-->
+                    <?php if ($slideImage) : ?>
+                        <source media="(min-width: 1200px)" srcset="<?php echo $slideImage; ?>">
+                    <?php endif; ?>
+                    <!-- Picture on tablet screens-->
+                    <?php if ($sliderTabletImageTablet) : ?>
+                        <source media="(min-width: 768px)" srcset="<?php echo $sliderTabletImageTablet; ?>">
+                    <?php endif; ?>
+                    <!-- Picture on screens less than 768px width-->
+                    <?php if ($sliderMobileImageMobile) : ?>
+                        <img class="has-cover" src="<?php echo $sliderMobileImageMobile; ?>" alt="Background image">
+                    <?php else : ?>
+                        <img class="has-cover" src="<?php echo $slideImage; ?>" alt="Background image">
+                    <?php endif; ?>
+                </picture>
+
+                <div class="categories-slider__items-slide-content">
+                    <?php if ($slideLabel) : ?>
+                        <div class="categories-slider__items-slide-content-label onsale">
+                            <span class="categories-slider__items-slide-content-label-text">
+                                <?php echo $slideLabel; ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($slideTitle) : ?>
+                        <h2 class="categories-slider__items-slide-content-title bg-blur">
+                            <?php echo $slideTitle; ?>
+                        </h2>
+                    <?php endif; ?>
+                    <?php if ($slideText) : ?>
+                        <div class="categories-slider__items-slide-content-text bg-blur">
+                            <p>
+                                <?php echo wp_kses_post($slideText); ?>
+                            </p>
+                            <?php if ($slideLink) : ?>
+                                <a href="<?php echo esc_url($slideLink); ?>" class="button">
+                                    <?php echo esc_html($slideLinkText); ?>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
+
+        <?php endif; ?>
 <?php
         $output = ob_get_clean();
 

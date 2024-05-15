@@ -44,8 +44,6 @@ registerBlockType( 'custom-blocks/categories-slider', {
         
         const innerBlocksProps = useInnerBlocksProps();
 
-
-        console.log('props ', props);
         useEffect(() => {
             productCategories().then((fetchedCategories) => {
                 setAttributes({ categories: fetchedCategories });
@@ -84,9 +82,10 @@ registerBlockType( 'custom-blocks/categories-slider', {
                                 {pickedCategories && 
                                     <div className="block-categories-slider__menu-item-wrapper">
                                         {pickedCategories.map(({name, image, id}) => {
+                                            console.log(image);
                                             return <span className="categories-slider__menu-item" key={`cat-${id}`}>
                                                 <div className="categories-slider__menu-item-img">
-                                                    <img src={image ?? '/wp-content/uploads/woocommerce-placeholder-324x324.png'} alt={`Category: ${name} image`} />
+                                                    <img src={image ? image.src : '/wp-content/uploads/woocommerce-placeholder-324x324.png'} alt={`Category: ${name} image`} />
                                                 </div>
                                                 <span className="categories-slider__menu-item-text">{name}</span>
                                             </span>
@@ -100,8 +99,7 @@ registerBlockType( 'custom-blocks/categories-slider', {
                                     allowedBlocks={ ALLOWED_BLOCKS }
                                     renderAppender={
                                         () => {
-                                                return(<InnerBlocks.ButtonBlockAppender />)
-                                            
+                                            return(<InnerBlocks.ButtonBlockAppender />)
                                         }
                                     }
                                 />

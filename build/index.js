@@ -474,7 +474,6 @@ registerBlockType('custom-blocks/categories-slider', {
       setAttributes = props.setAttributes,
       className = props.className;
     var innerBlocksProps = useInnerBlocksProps();
-    console.log('props ', props);
     useEffect(function () {
       productCategories().then(function (fetchedCategories) {
         setAttributes({
@@ -518,13 +517,14 @@ registerBlockType('custom-blocks/categories-slider', {
       var name = _ref.name,
         image = _ref.image,
         id = _ref.id;
+      console.log(image);
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("span", {
         className: "categories-slider__menu-item",
         key: "cat-".concat(id)
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
         className: "categories-slider__menu-item-img"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
-        src: image !== null && image !== void 0 ? image : '/wp-content/uploads/woocommerce-placeholder-324x324.png',
+        src: image ? image.src : '/wp-content/uploads/woocommerce-placeholder-324x324.png',
         alt: "Category: ".concat(name, " image")
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("span", {
         className: "categories-slider__menu-item-text"
@@ -618,10 +618,14 @@ __webpack_require__.r(__webpack_exports__);
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
   useBlockProps = _wp$blockEditor.useBlockProps,
+  InspectorControls = _wp$blockEditor.InspectorControls,
   MediaUpload = _wp$blockEditor.MediaUpload,
   RichText = _wp$blockEditor.RichText,
   URLInputButton = _wp$blockEditor.URLInputButton;
 var _wp$components = wp.components,
+  Panel = _wp$components.Panel,
+  PanelBody = _wp$components.PanelBody,
+  PanelRow = _wp$components.PanelRow,
   TextControl = _wp$components.TextControl,
   Button = _wp$components.Button;
 var __ = wp.i18n.__;
@@ -631,13 +635,19 @@ registerBlockType('custom-blocks/slide', {
   category: 'common',
   description: 'GUTENBERG Block that displays SLIDE for slider title.',
   keywords: ['slide'],
+  parent: ['custom-blocks/categories-slider'],
   attributes: {
     slideImageBackground: {
       type: 'string'
     },
+    slideImageBackgroundTablet: {
+      type: 'string'
+    },
+    slideImageBackgroundMobile: {
+      type: 'string'
+    },
     slideSubtitle: {
-      type: 'string',
-      default: 'qweqweqwe'
+      type: 'string'
     },
     slideTitle: {
       type: 'string'
@@ -645,20 +655,71 @@ registerBlockType('custom-blocks/slide', {
     slideText: {
       type: 'string'
     },
-    slideButton: {
+    slideButtonUrl: {
+      type: 'string'
+    },
+    slideButtonText: {
       type: 'string'
     }
   },
   edit: function edit(props) {
     var _props$attributes = props.attributes,
       slideImageBackground = _props$attributes.slideImageBackground,
+      slideImageBackgroundTablet = _props$attributes.slideImageBackgroundTablet,
+      slideImageBackgroundMobile = _props$attributes.slideImageBackgroundMobile,
       slideSubtitle = _props$attributes.slideSubtitle,
       slideTitle = _props$attributes.slideTitle,
       slideText = _props$attributes.slideText,
-      slideButton = _props$attributes.slideButton,
+      slideButtonUrl = _props$attributes.slideButtonUrl,
+      slideButtonText = _props$attributes.slideButtonText,
       setAttributes = props.setAttributes,
       className = props.className;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", useBlockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Panel, {
+      header: "My Panel"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: "Settings",
+      initialOpen: true
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      style: {
+        'display': 'block'
+      },
+      src: slideImageBackgroundTablet !== null && slideImageBackgroundTablet !== void 0 ? slideImageBackgroundTablet : '/wp-content/uploads/woocommerce-placeholder-324x324.png'
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: function onSelect(media) {
+        return setAttributes({
+          slideImageBackgroundTablet: media.url
+        });
+      },
+      type: "image",
+      value: slideImageBackgroundTablet,
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+          isPrimary: true,
+          onClick: open
+        }, !slideImageBackgroundTablet ? 'Upload Tablet Image' : 'Edit Tablet Background');
+      }
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      style: {
+        'display': 'block'
+      },
+      src: slideImageBackgroundMobile !== null && slideImageBackgroundMobile !== void 0 ? slideImageBackgroundMobile : '/wp-content/uploads/woocommerce-placeholder-324x324.png'
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: function onSelect(media) {
+        return setAttributes({
+          slideImageBackgroundMobile: media.url
+        });
+      },
+      type: "image",
+      value: slideImageBackgroundMobile,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+          isPrimary: true,
+          onClick: open
+        }, !slideImageBackgroundMobile ? 'Upload Mobile Image' : 'Edit Mobile Background');
+      }
+    })))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", useBlockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "categories-slider__items-slide flexible-bg-image"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: "has-cover",
@@ -668,10 +729,9 @@ registerBlockType('custom-blocks/slide', {
       className: "categories-slider__items-slide-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "categories-slider__items-slide-content-label onsale"
-    }, slideSubtitle && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
-      className: "categories-slider__items-slide-content-label-text"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
       tagName: "h3",
+      className: "categories-slider__items-slide-content-label-text",
       value: slideSubtitle,
       onChange: function onChange(value) {
         return setAttributes({
@@ -679,7 +739,7 @@ registerBlockType('custom-blocks/slide', {
         });
       },
       placeholder: "Enter subtitle"
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
       className: "categories-slider__items-slide-content-title bg-blur",
       tagName: "h2",
       value: slideTitle,
@@ -704,17 +764,39 @@ registerBlockType('custom-blocks/slide', {
       href: "<?php echo esc_url($link_url); ?>",
       target: "<?php echo esc_attr($link_target); ?>",
       className: "button"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInputButton, {
-      url: '',
-      onChange: function onChange(url, post) {
-        console.log('change urlInputButton ', url, post);
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      tagName: "p",
+      value: slideButtonText,
+      onChange: function onChange(value) {
+        return setAttributes({
+          slideButtonText: value
+        });
+      },
+      placeholder: "Enter text"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInputButton, {
+      url: slideButtonUrl,
+      onChange: function onChange(url) {
+        return setAttributes({
+          slideButtonUrl: url
+        });
+      },
+      expanded: true
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: function onSelect(media) {
+        return setAttributes({
+          slideImageBackground: media.url
+        });
+      },
+      type: "image",
+      value: slideImageBackground,
+      render: function render(_ref3) {
+        var open = _ref3.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+          isPrimary: true,
+          onClick: open
+        }, !slideImageBackground ? 'Upload Image' : 'Edit Background');
       }
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
-      isPrimary: true,
-      onClick: function onClick() {
-        return removeSlide(index);
-      }
-    }, "Remove Slide")));
+    }))));
   },
   save: function save() {
     return null;
