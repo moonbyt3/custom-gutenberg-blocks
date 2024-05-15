@@ -11,6 +11,6 @@ class Gutenberg_Plugin {
             PLUGIN_URL . 'build/index.js',
             ['wp-blocks', 'wp-element', 'wp-editor', 'wp-polyfill']
         );
-        wp_enqueue_style('custom-gutenberg-css', PLUGIN_URL . 'build/index.css');
+        wp_enqueue_style('custom-gutenberg-css', PLUGIN_URL . 'build/style-index.css');
     }
 }

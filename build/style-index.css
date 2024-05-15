@@ -7,5 +7,101 @@
   font-size: 4rem;
   font-weight: bold;
 }
+.block-categories-slider .slick-list,
+.block-categories-slider .slick-track,
+.block-categories-slider .block-categories-slider__items-slide {
+  height: 100%;
+}
+.block-categories-slider .slick-slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.block-categories-slider-wrapper {
+  display: flex;
+}
+
+.block-categories-slider__menu {
+  width: 320px;
+}
+@media (above-m) {
+  .block-categories-slider__menu {
+    display: none;
+  }
+}
+
+.block-categories-slider__menu-item-wrapper {
+  height: 590px;
+  width: 100%;
+  max-width: 320px;
+  padding: 15px 10px 20px 0;
+  overflow-y: auto;
+}
+.block-categories-slider__menu-item-wrapper::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+}
+.block-categories-slider__menu-item-wrapper::-webkit-scrollbar-thumb {
+  background: #164690;
+}
+.block-categories-slider__menu-item-wrapper::-webkit-scrollbar-track {
+  background: #fcfcfc;
+}
+.block-categories-slider__menu-item-wrapper {
+  scrollbar-face-color: #164690;
+  scrollbar-track-color: #fcfcfc;
+}
+
+.block-categories-slider__menu-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  transition: 0.3s ease-in;
+  cursor: pointer;
+  border: 1px solid #e9e9e9;
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.2);
+}
+.block-categories-slider__menu-item:hover {
+  color: #164690;
+}
+.block-categories-slider__menu-item:hover .block-categories-slider__menu-item-text::after {
+  width: 100%;
+}
+.block-categories-slider__menu-item:hover .block-categories-slider__menu-item-img img {
+  transform: scale(1.1);
+}
+
+.block-categories-slider__menu-item-img {
+  width: 35px;
+  margin-right: 0.5rem;
+  overflow: hidden;
+}
+.block-categories-slider__menu-item-img img {
+  transition: 0.3s ease-in;
+}
+
+.block-categories-slider__menu-item-text {
+  font-weight: bold;
+}
+.block-categories-slider__menu-item-text::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background-color: #164690;
+  transition: 0.3s ease-in;
+}
+.block-slide {
+  position: relative;
+  padding: 6.25rem 0;
+}
+
+.block-slide__text {
+  font-size: 4rem;
+  font-weight: bold;
+}
 
 /*# sourceMappingURL=style-index.css.map*/
