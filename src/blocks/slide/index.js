@@ -4,6 +4,7 @@ const { Panel, PanelBody, PanelRow, TextControl, Button } = wp.components;
 const { __ } = wp.i18n;
 
 registerBlockType( 'custom-blocks/slide', {
+    apiVersion: 2,
     title: 'Slide',
     icon: 'layout',
     category: 'common',
@@ -51,6 +52,8 @@ registerBlockType( 'custom-blocks/slide', {
             setAttributes, 
             className 
         } = props;
+
+        const blockProps = useBlockProps();
         
         return (
             <>
@@ -90,7 +93,7 @@ registerBlockType( 'custom-blocks/slide', {
                         </PanelBody>
                     </Panel>
                 </InspectorControls>
-                <div {...useBlockProps}>
+                <div {...blockProps}>
                     <div className="categories-slider__items-slide flexible-bg-image">
                         <picture>
                             <img className="has-cover" src={slideImageBackground} alt="" />

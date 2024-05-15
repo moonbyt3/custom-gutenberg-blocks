@@ -629,6 +629,7 @@ var _wp$components = wp.components,
   Button = _wp$components.Button;
 var __ = wp.i18n.__;
 registerBlockType('custom-blocks/slide', {
+  apiVersion: 2,
   title: 'Slide',
   icon: 'layout',
   category: 'common',
@@ -673,6 +674,7 @@ registerBlockType('custom-blocks/slide', {
       slideButtonText = _props$attributes.slideButtonText,
       setAttributes = props.setAttributes,
       className = props.className;
+    var blockProps = useBlockProps();
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Panel, {
       header: "My Panel"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
@@ -718,7 +720,7 @@ registerBlockType('custom-blocks/slide', {
           onClick: open
         }, !slideImageBackgroundMobile ? 'Upload Mobile Image' : 'Edit Mobile Background');
       }
-    })))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", useBlockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    })))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "categories-slider__items-slide flexible-bg-image"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: "has-cover",
