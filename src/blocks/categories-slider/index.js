@@ -82,7 +82,6 @@ registerBlockType( 'custom-blocks/categories-slider', {
                                 {pickedCategories && 
                                     <div className="block-categories-slider__menu-item-wrapper">
                                         {pickedCategories.map(({name, image, id}) => {
-                                            console.log(image);
                                             return <span className="categories-slider__menu-item" key={`cat-${id}`}>
                                                 <div className="categories-slider__menu-item-img">
                                                     <img src={image ? image.src : '/wp-content/uploads/woocommerce-placeholder-324x324.png'} alt={`Category: ${name} image`} />

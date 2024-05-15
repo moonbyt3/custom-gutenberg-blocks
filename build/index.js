@@ -517,7 +517,6 @@ registerBlockType('custom-blocks/categories-slider', {
       var name = _ref.name,
         image = _ref.image,
         id = _ref.id;
-      console.log(image);
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("span", {
         className: "categories-slider__menu-item",
         key: "cat-".concat(id)
