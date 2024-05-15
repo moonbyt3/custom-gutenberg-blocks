@@ -8,3 +8,6 @@ import './blocks/categories-slider/';
 
 import './blocks/slide/style.scss';
 import './blocks/slide';
+
+import './blocks/products/style.scss';
+import './blocks/products/';

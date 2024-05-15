@@ -48,7 +48,7 @@ class Slide_Block {
             $slideLinkText = $slide['slideButtonText'] ?? '';
             ?>
 
-            <div class="categories-slider__items-slide flexible-bg-image">
+            <div class="block-categories-slider__items-slide flexible-bg-image">
                 <picture>
                     <!-- Picture on large screens-->
                     <?php if ($slideImage) : ?>
@@ -66,21 +66,21 @@ class Slide_Block {
                     <?php endif; ?>
                 </picture>
 
-                <div class="categories-slider__items-slide-content">
+                <div class="block-categories-slider__items-slide-content">
                     <?php if ($slideLabel) : ?>
-                        <div class="categories-slider__items-slide-content-label onsale">
-                            <span class="categories-slider__items-slide-content-label-text">
+                        <div class="block-categories-slider__items-slide-content-label onsale">
+                            <span class="block-categories-slider__items-slide-content-label-text">
                                 <?php echo $slideLabel; ?>
                             </span>
                         </div>
                     <?php endif; ?>
                     <?php if ($slideTitle) : ?>
-                        <h2 class="categories-slider__items-slide-content-title bg-blur">
+                        <h2 class="block-categories-slider__items-slide-content-title bg-blur">
                             <?php echo $slideTitle; ?>
                         </h2>
                     <?php endif; ?>
                     <?php if ($slideText) : ?>
-                        <div class="categories-slider__items-slide-content-text bg-blur">
+                        <div class="block-categories-slider__items-slide-content-text bg-blur">
                             <p>
                                 <?php echo wp_kses_post($slideText); ?>
                             </p>

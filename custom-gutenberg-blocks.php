@@ -28,9 +28,11 @@ require_once plugin_dir_path(__FILE__) . 'plugin.php';
 require_once plugin_dir_path(__FILE__) . 'src/blocks/example/block.php';
 require_once plugin_dir_path(__FILE__) . 'src/blocks/categories-slider/block.php';
 require_once plugin_dir_path(__FILE__) . 'src/blocks/slide/block.php';
+require_once plugin_dir_path(__FILE__) . 'src/blocks/products/block.php';
 
 new Gutenberg_Plugin();
 
 new Example_Block();
 new Categories_Slider_Block();
 new Slide_Block();
+new Products_Block();
