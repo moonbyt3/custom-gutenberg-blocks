@@ -1,5 +1,16 @@
 (window["webpackJsonp_custom_gutenberg_blocks"] = window["webpackJsonp_custom_gutenberg_blocks"] || []).push([["style-index"],{
 
+/***/ "./src/blocks/card-product/style.scss":
+/*!********************************************!*\
+  !*** ./src/blocks/card-product/style.scss ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "./src/blocks/categories-slider/style.scss":
 /*!*************************************************!*\
   !*** ./src/blocks/categories-slider/style.scss ***!
@@ -219,6 +230,20 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
@@ -299,6 +324,58 @@ module.exports = _iterableToArray, module.exports.__esModule = true, module.expo
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
@@ -310,6 +387,24 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -407,6 +502,215 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./src/blocks/card-product/index.js":
+/*!******************************************!*\
+  !*** ./src/blocks/card-product/index.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+var _wp$element = wp.element,
+  useState = _wp$element.useState,
+  useEffect = _wp$element.useEffect;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+  RichText = _wp$blockEditor.RichText,
+  InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+  Panel = _wp$components.Panel,
+  PanelBody = _wp$components.PanelBody,
+  PanelRow = _wp$components.PanelRow,
+  SearchControl = _wp$components.SearchControl,
+  TextControl = _wp$components.TextControl;
+var __ = wp.i18n.__;
+var apiFetch = wp.apiFetch;
+var addQueryArgs = wp.url.addQueryArgs;
+var products = function products(queryArgs) {
+  return apiFetch({
+    path: addQueryArgs("wc/store/products", _objectSpread({
+      per_page: 0,
+      search: queryArgs
+    }, queryArgs))
+  });
+};
+registerBlockType('custom-blocks/card-product', {
+  title: 'Card Product',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "#fff",
+    viewBox: "0 0 185 180"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    stroke: "#4D4D4D",
+    d: "M168.333 48.276 16.365 46.503 7.917 68.305v43.3l8.448 20.915 151.968-.887 8.75-19.725V67.785l-8.75-19.509Z"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    fill: "url(#a)",
+    stroke: "#4D4D4D",
+    d: "M37.083 39.582h110.833L92.305 11.898 37.083 39.582Z"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    fill: "url(#b)",
+    stroke: "#4D4D4D",
+    d: "M147.917 141.418H37.084l55.611 25.706 55.222-25.706Z"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    stroke: "#4D4D4D",
+    fill: "#fff",
+    d: "m180 64.462-11.293-25.927L92.451 3 15.459 38.535 5 64.462v51.493l10.459 25.927L92.792 178l75.915-36.118L180 116.315V64.462Z"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    fill: "#164690",
+    d: "M60.66 100.129a9380.739 9380.739 0 0 0 17.086-40.773h20.453l-12.887 62.288H71.344l7.192-34.85-14.758 34.85H48.646l-.416-34.638-7.15 34.638H27.36l12.887-62.288H60.66v40.773Zm53.474 3.664H90.273l2.41-11.504h23.863l-2.412 11.504Zm26.195-44.437c6.679 0 11.294 1.548 13.844 4.644 1.662 2.045 2.494 4.786 2.494 8.222 0 1.818-.222 3.82-.665 6.008-1.525 7.385-5.114 12.767-10.767 16.147l5.986 27.267h-15.34l-4.448-23.518h-.748l-4.864 23.518h-14.508L124.2 59.356h16.129Zm-6.194 27.267c1.913 0 3.437-.668 4.573-2.002 1.164-1.335 2.037-3.366 2.619-6.093.25-1.25.374-2.372.374-3.366 0-2.84-1.455-4.26-4.365-4.26h-.997l-3.285 15.72h1.081Z"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("defs", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("linearGradient", {
+    id: "a",
+    x1: "92.5",
+    x2: "92.5",
+    y1: "11.898",
+    y2: "39.582",
+    gradientUnits: "userSpaceOnUse"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("stop", {
+    stopColor: "#E52727",
+    stopOpacity: "0"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("stop", {
+    offset: "1",
+    stopColor: "#E52727"
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("linearGradient", {
+    id: "b",
+    x1: "92.5",
+    x2: "92.5",
+    y1: "167.124",
+    y2: "141.418",
+    gradientUnits: "userSpaceOnUse"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("stop", {
+    stopColor: "#D9D9D9",
+    stopOpacity: "0"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("stop", {
+    offset: "1",
+    stopColor: "#164690"
+  })))),
+  category: 'common',
+  description: 'Block that displays card-product title.',
+  keywords: ['card', 'product'],
+  attributes: {
+    title: {
+      type: 'string'
+    },
+    products: {
+      type: 'array'
+    }
+  },
+  edit: function edit(props) {
+    var title = props.attributes.title,
+      setAttributes = props.setAttributes,
+      className = props.className;
+    var _useState = useState(''),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+      searchInput = _useState2[0],
+      setSearchInput = _useState2[1];
+    var _useState3 = useState([]),
+      _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState3, 2),
+      searchResults = _useState4[0],
+      setSearchResults = _useState4[1];
+    var onTitleChange = function onTitleChange(newContent) {
+      setAttributes({
+        title: newContent
+      });
+    };
+    var onSearchInputChange = function onSearchInputChange(searchQuery) {
+      setSearchInput(searchQuery);
+    };
+    var onSelectProduct = function onSelectProduct(product) {
+      setAttributes({
+        productId: product.id,
+        productName: product.name
+      });
+    };
+    useEffect(function () {
+      products().then(function (fetchedProducts) {
+        console.log('effect run ', fetchedProducts);
+        setSearchResults({
+          products: fetchedProducts
+        });
+      });
+    }, [searchInput]);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Panel, {
+      header: "Block Settings"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: "Product",
+      initialOpen: true
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SearchControl, {
+      __nextHasNoMarginBottom: true,
+      label: __('Search posts'),
+      value: searchInput,
+      onChange: onSearchInputChange
+    }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component-wrapper"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
+      className: "product-component__img",
+      href: "#"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      src: "",
+      alt: "asdas"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+      className: "product-component__img-sale onsale"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
+      tagName: "span",
+      className: "product-component__img-sale-text",
+      onChange: onTitleChange,
+      value: title,
+      placeholder: __('Write your custom product message', 'custom-gutenberg-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component__info"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+      className: "product-component__sku"
+    }, "sku"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("p", {
+      className: "product-component__name",
+      title: "Proizvod: <?php echo '$productName'; ?>"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
+      href: "<?php echo '$productLink'; ?>"
+    }, "product name")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component__price-holder"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("p", {
+      className: "product-component__price"
+    }, "price")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component__buttons"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
+      href: "<?php echo '$productLink'; ?>",
+      className: "button button--inverse"
+    }, "Vi\u0161e"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
+      className: "product-component__buttons-btn button ajax_add_to_cart add_to_cart_button",
+      href: "#",
+      value: "####",
+      "data-quantity": "1",
+      "data-product_id": "<?php echo '$productId'; ?>",
+      "data-product_sku": "<?php echo '$productSku'; ?>",
+      "aria-label": "Dodaj \u201C<?php echo '$productName'; ?>\u201D u Va\u0161u korpu."
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+      className: "product-component__buttons-btn-text"
+    }, "Dodaj u korpu"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component__buttons-btn-loader"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+      className: "loader"
+    }))))))));
+  },
+  save: function save() {
+    return null;
+  }
+});
 
 /***/ }),
 
@@ -722,8 +1026,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
 var registerBlockType = wp.blocks.registerBlockType;
-var RichText = wp.blockEditor.RichText;
-var TextControl = wp.components.TextControl;
+var _wp$blockEditor = wp.blockEditor,
+  InnerBlocks = _wp$blockEditor.InnerBlocks,
+  RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+  TextControl = _wp$components.TextControl,
+  SearchControl = _wp$components.SearchControl;
 var __ = wp.i18n.__;
 registerBlockType('custom-blocks/products', {
   title: 'Products',
@@ -788,25 +1096,35 @@ registerBlockType('custom-blocks/products', {
     var title = props.attributes.title,
       setAttributes = props.setAttributes,
       className = props.className;
+    var ALLOWED_BLOCKS = ['custom-blocks/card-product'];
     var onTitleChange = function onTitleChange(newContent) {
       setAttributes({
         title: newContent
       });
     };
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "block-products"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "container"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      tagName: "h2",
-      className: className + ' block-products__text',
+      tagName: "h1",
+      className: className + ' block-products__title section-title',
       onChange: onTitleChange,
       value: title,
       placeholder: __('Write your custom message', 'custom-gutenberg-blocks')
-    })));
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "block-products-slider"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "block-products-wrapper products-tabs-wrapper"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      allowedBlocks: ALLOWED_BLOCKS,
+      renderAppender: function renderAppender() {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))))));
   },
   save: function save() {
-    return null;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
   }
 });
 
@@ -1087,6 +1405,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_products_style_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./blocks/products/style.scss */ "./src/blocks/products/style.scss");
 /* harmony import */ var _blocks_products_style_scss__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_blocks_products_style_scss__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _blocks_products___WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./blocks/products/ */ "./src/blocks/products/index.js");
+/* harmony import */ var _blocks_card_product_style_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./blocks/card-product/style.scss */ "./src/blocks/card-product/style.scss");
+/* harmony import */ var _blocks_card_product_style_scss__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_blocks_card_product_style_scss__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _blocks_card_product___WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./blocks/card-product/ */ "./src/blocks/card-product/index.js");
+
+
 
 
 

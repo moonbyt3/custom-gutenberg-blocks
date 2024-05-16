@@ -11,3 +11,6 @@ import './blocks/slide';
 
 import './blocks/products/style.scss';
 import './blocks/products/';
+
+import './blocks/card-product/style.scss';
+import './blocks/card-product/';

@@ -32,16 +32,34 @@ class Products_Block {
      */
     public function render_products_block($attributes) {
         $blockTitle = $attributes['title'] ?? '';
+        $chosenProducts = $attibutes['chosenProducts'] ?? [];
 
         ob_start();
 ?>
         <div class="block-products">
             <div class="container">
                 <?php if ($blockTitle) : ?>
-                    <h2 class="block-products__text">
+                    <h1 class="block-products__title section-title">
                         <?php echo $blockTitle; ?>
-                    </h2>
+                    </h1>
                 <?php endif; ?>
+                <div class="block-products-slider">
+                    <div class="block-products-wrapper products-tabs-wrapper">
+                        <?php if ($chosenProducts) : ?>
+                            <?php
+                            $args = [
+                                'include' => $chosenProducts
+                            ];
+                            $products = wc_get_products($args);
+                            ?>
+                            <?php foreach ($products as $product) : ?>
+                                <?php
+                                get_template_part('template-parts/parts/component', 'product', $product);
+                                ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
 <?php
