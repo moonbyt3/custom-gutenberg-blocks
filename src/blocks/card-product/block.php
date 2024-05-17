@@ -31,33 +31,43 @@ class Card_Product_Block {
      * @return string|false
      */
     public function render_card_product_block($attributes) {
-        $blockTitle = $attributes['title'] ?? '';
+        $productFromAttributes = $attributes['chosenProduct'];
+        $product = wc_get_product($productFromAttributes['id']);
+
+        $productLink = get_permalink($product->get_id());
+        $productSKU = $product->get_sku();
+        $productTitle = $product->get_title();
+        $productPrice = $product->get_price_html();
+
 
         ob_start();
 ?>
-
         <div class="product-component-wrapper">
             <div class="product-component">
                 <a class="product-component__img" href="#">
-                    <img src="" alt="asdas">
-                    <span class="product-component__img-sale onsale">
-                        <span class="product-component__img-sale-text">
-                            Akcija
+                    <?php echo $product->get_image(); ?>
+                    <?php if ($product->is_on_sale()) : ?>
+                        <span class="product-component__img-sale onsale">
+                            <span class="product-component__img-sale-text">
+                                Akcija
+                            </span>
                         </span>
-                    </span>
+                    <?php endif; ?>
                 </a>
                 <div class="product-component__info">
-                    <span class="product-component__sku"><?php echo '$productSku'; ?></span>
-                    <p class="product-component__name" title="Proizvod: <?php echo '$productName'; ?>"><a href="<?php echo '$productLink'; ?>"><?php echo '$productName'; ?></a></p>
+                    <span class="product-component__sku"><?php echo $productSKU; ?></span>
+                    <p class="product-component__name" title="Proizvod: <?php echo $productTitle; ?>">
+                        <a href="<?php echo $productLink; ?>"><?php echo $productTitle; ?></a>
+                    </p>
 
-                    <div class="product-component__price-holder">
-                        <p class="product-component__price"><?php echo '$product->get_price_html()'; ?></p>
+                    <div class=" product-component__price-holder">
+                        <p class="product-component__price"><?php echo $productPrice; ?></p>
                     </div>
 
                     <div class="product-component__buttons">
-                        <a href="<?php echo '$productLink'; ?>" class="button button--inverse">Više</a>
+                        <a href="<?php echo $productLink; ?>" class="button button--inverse">Više</a>
 
-                        <a class="product-component__buttons-btn button ajax_add_to_cart add_to_cart_button" href="#" value="####" data-quantity="1" data-product_id="<?php echo '$productId'; ?>" data-product_sku="<?php echo '$productSku'; ?>" aria-label="Dodaj “<?php echo '$productName'; ?>” u Vašu korpu.">
+                        <a class="product-component__buttons-btn button ajax_add_to_cart add_to_cart_button" href="<?php echo $product->add_to_cart_url(); ?>" value="<?php echo esc_attr($product->get_id()); ?>" data-quantity="1" data-product_id="<?php echo esc_attr($product->get_id()); ?>" data-product_sku="<?php echo $productSKU; ?>" aria-label="Dodaj “<?php echo $productTitle; ?>” u Vašu korpu.">
                             <span class="product-component__buttons-btn-text">
                                 Dodaj u korpu
                             </span>

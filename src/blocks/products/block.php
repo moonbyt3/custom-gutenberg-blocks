@@ -30,7 +30,7 @@ class Products_Block {
      * @param mixed $attibutes
      * @return string|false
      */
-    public function render_products_block($attributes) {
+    public function render_products_block($attributes, $content) {
         $blockTitle = $attributes['title'] ?? '';
         $chosenProducts = $attibutes['chosenProducts'] ?? [];
 
@@ -45,6 +45,7 @@ class Products_Block {
                 <?php endif; ?>
                 <div class="block-products-slider">
                     <div class="block-products-wrapper products-tabs-wrapper">
+                        <?php echo $content; ?>
                         <?php if ($chosenProducts) : ?>
                             <?php
                             $args = [
