@@ -1,3 +1,5 @@
-
+.block-editor-input-no-margin .components-base-control {
+  margin-bottom: 0;
+}
 
 /*# sourceMappingURL=index.css.map*/

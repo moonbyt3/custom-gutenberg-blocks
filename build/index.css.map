@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"index.css","sourceRoot":""}
+{"version":3,"sources":["webpack:///main.scss"],"names":[],"mappings":"AAAA;EACE,gBAAgB;AAClB,C","file":"index.css","sourcesContent":[".block-editor-input-no-margin .components-base-control {\n  margin-bottom: 0;\n}"],"sourceRoot":""}

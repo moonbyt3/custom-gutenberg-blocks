@@ -2,25 +2,77 @@ const { useState, useEffect } = wp.element;
 
 const { registerBlockType } = wp.blocks;
 const { RichText, InspectorControls } = wp.blockEditor;
-const { Panel, PanelBody, PanelRow, SearchControl, TextControl } = wp.components;
+const { Panel, PanelBody, PanelRow, Spinner, SearchControl, TextControl } = wp.components;
 
 const { __ } = wp.i18n;
 
 const apiFetch = wp.apiFetch;
 const { addQueryArgs } = wp.url;
 
+const { useSelect } = wp.data;
 
-const products = (queryArgs) => {
+const { store } = wp.coreData;
 
+const productsQuery = (queryArgs) => {
     return apiFetch({
         path: addQueryArgs(`wc/store/products`, {
-            per_page: 0,
+            per_page: 15,
             search: queryArgs,
             ...queryArgs,
         }),
     });
 };
 
+const ProductsList = ({ hasResolved, products, setFetchedProducts, setAttributes }) => {
+    if (!hasResolved) {
+        return <Spinner />;
+    }
+
+    if (!products?.length) {
+        return <div>No results</div>;
+    }
+
+    return (
+        <div className="wp-list-table widefat fixed striped table-view-list" style={{ 'overflowY': 'auto', 'maxHeight': '350px' }}>
+            <table>
+                <tbody>
+                    {products?.map((product) => (
+                        <tr key={product.id} onClick={() => {
+                            console.log("product from render: ", product);
+                            setAttributes({
+                                chosenProduct: {
+                                    id: product.id,
+                                    name: product.name,
+                                    sku: product.sku,
+                                    images: product.images,
+                                    prices: product.prices,
+                                    priceHtml: product.price_html,
+                                    slug: product.slug,
+                                    isOnSale: product.on_sale
+                                }
+                            })
+                        }}>
+                            <td>
+                                <label htmlFor={product.id}>
+                                    <input
+                                        type="radio"
+                                        id={product.id}
+                                        name="chose-product"
+                                        value={product.name}
+                                        onChange={() => {
+                                            console.log('on change event input');
+                                        }}
+                                    />
+                                    {product.name}
+                                </label>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
 
 registerBlockType('custom-blocks/card-product', {
     title: 'Card Product',
@@ -34,35 +86,35 @@ registerBlockType('custom-blocks/card-product', {
         },
         products: {
             type: 'array',
+        },
+        chosenProduct: {
+            type: 'object'
         }
     },
     edit: (props) => {
-        const { attributes: { title }, setAttributes, className } = props;
+        console.log('Props start of edit func: ', props);
+        const {
+            attributes: {
+                chosenProduct
+            },
+            setAttributes,
+            className
+        } = props;
 
         const [searchInput, setSearchInput] = useState('');
-        const [searchResults, setSearchResults] = useState([]);
+        const [fetchedProducts, setFetchedProducts] = useState([]);
+        const [hasResolved, setHasResolved] = useState(false);
+
+        useEffect(() => {
+            productsQuery({ search: searchInput }).then((fetchedProducts) => {
+                setFetchedProducts(fetchedProducts);
+                setHasResolved(true);
+            });
+        }, [searchInput]);
 
         const onTitleChange = (newContent) => {
             setAttributes({ title: newContent });
         };
-
-        const onSearchInputChange = (searchQuery) => {
-            setSearchInput(searchQuery);
-        };
-
-        const onSelectProduct = (product) => {
-            setAttributes({
-                productId: product.id,
-                productName: product.name,
-            });
-        };
-
-        useEffect(() => {
-            products().then((fetchedProducts) => {
-                console.log('effect run ', fetchedProducts);
-                setSearchResults({ products: fetchedProducts });
-            });
-        }, [searchInput]);
 
         return (
             <>
@@ -70,53 +122,69 @@ registerBlockType('custom-blocks/card-product', {
                     <Panel header="Block Settings">
                         <PanelBody title="Product" initialOpen={true}>
                             <PanelRow>
-                                <SearchControl
-                                    __nextHasNoMarginBottom
-                                    label={__('Search posts')}
-                                    value={searchInput}
-                                    onChange={onSearchInputChange}
-                                />
+                                <div className="block-editor-input-no-margin">
+                                    <SearchControl
+                                        __nextHasNoMarginBottom
+                                        label={__('Search posts')}
+                                        value={searchInput}
+                                        onChange={setSearchInput}
+                                        style={{ 'marginBottom': '0' }}
+                                    />
+                                    <ProductsList hasResolved={hasResolved} products={fetchedProducts} setFetchedProducts={setFetchedProducts} setAttributes={setAttributes} />
+                                </div>
                             </PanelRow>
                         </PanelBody>
                     </Panel>
                 </InspectorControls>
-                <div className="product-component-wrapper">
-                    <div className="product-component">
-                        <a className="product-component__img" href="#">
-                            <img src="" alt="asdas" />
-                            <span className="product-component__img-sale onsale">
-                                <RichText
-                                    tagName="span"
-                                    className="product-component__img-sale-text"
-                                    onChange={onTitleChange}
-                                    value={title}
-                                    placeholder={__('Write your custom product message', 'custom-gutenberg-blocks')}
-                                />
-                            </span>
-                        </a>
-                        <div className="product-component__info">
-                            <span className="product-component__sku">sku</span>
-                            <p className="product-component__name" title="Proizvod: <?php echo '$productName'; ?>"><a href="<?php echo '$productLink'; ?>">product name</a></p>
-
-                            <div className="product-component__price-holder">
-                                <p className="product-component__price">price</p>
-                            </div>
-
-                            <div className="product-component__buttons">
-                                <a href="<?php echo '$productLink'; ?>" className="button button--inverse">Više</a>
-
-                                <a className="product-component__buttons-btn button ajax_add_to_cart add_to_cart_button" href="#" value="####" data-quantity="1" data-product_id="<?php echo '$productId'; ?>" data-product_sku="<?php echo '$productSku'; ?>" aria-label="Dodaj “<?php echo '$productName'; ?>” u Vašu korpu.">
-                                    <span className="product-component__buttons-btn-text">
-                                        Dodaj u korpu
+                {
+                    chosenProduct && <div className="product-component-wrapper">
+                        <div className="product-component">
+                            <a className="product-component__img" href="#">
+                                <img src={chosenProduct.images && chosenProduct.images[0].src} alt="" />
+                                {
+                                    chosenProduct.isOnSale && <span className="product-component__img-sale onsale">
+                                        Akcija
                                     </span>
-                                    <div className="product-component__buttons-btn-loader">
-                                        <span className="loader"></span>
-                                    </div>
-                                </a>
+                                }
+
+                            </a>
+                            <div className="product-component__info">
+                                <span className="product-component__sku">{chosenProduct.sku}</span>
+                                <p className="product-component__name" title={`Proizvod: ${chosenProduct.name}`}><span>{chosenProduct.name}</span></p>
+
+                                <div className="product-component__price-holder">
+                                    <p className="product-component__price" dangerouslySetInnerHTML={{ __html: chosenProduct.priceHtml }}>
+
+                                    </p>
+                                </div>
+
+                                <div className="product-component__buttons">
+                                    <span className="button button--inverse">Više</span>
+
+                                    <span className="product-component__buttons-btn button ajax_add_to_cart add_to_cart_button">
+                                        <span className="product-component__buttons-btn-text">
+                                            Dodaj u korpu
+                                        </span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    ||
+                    <div className="product-component-wrapper">
+                        <div className="product-component">
+                            <div
+                                style={{
+                                    'padding': '1.75rem 0',
+                                    'textAlign': 'center'
+                                }}
+                            >
+                                Choose a product from the sidebar...
+                            </div>
+                        </div>
+                    </div>
+
+                }
             </>
         );
     },

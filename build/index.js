@@ -536,18 +536,69 @@ var _wp$components = wp.components,
   Panel = _wp$components.Panel,
   PanelBody = _wp$components.PanelBody,
   PanelRow = _wp$components.PanelRow,
+  Spinner = _wp$components.Spinner,
   SearchControl = _wp$components.SearchControl,
   TextControl = _wp$components.TextControl;
 var __ = wp.i18n.__;
 var apiFetch = wp.apiFetch;
 var addQueryArgs = wp.url.addQueryArgs;
-var products = function products(queryArgs) {
+var useSelect = wp.data.useSelect;
+var store = wp.coreData.store;
+var productsQuery = function productsQuery(queryArgs) {
   return apiFetch({
     path: addQueryArgs("wc/store/products", _objectSpread({
-      per_page: 0,
+      per_page: 15,
       search: queryArgs
     }, queryArgs))
   });
+};
+var ProductsList = function ProductsList(_ref) {
+  var hasResolved = _ref.hasResolved,
+    products = _ref.products,
+    setFetchedProducts = _ref.setFetchedProducts,
+    setAttributes = _ref.setAttributes;
+  if (!hasResolved) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Spinner, null);
+  }
+  if (!(products !== null && products !== void 0 && products.length)) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, "No results");
+  }
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    className: "wp-list-table widefat fixed striped table-view-list",
+    style: {
+      'overflowY': 'auto',
+      'maxHeight': '350px'
+    }
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("table", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("tbody", null, products === null || products === void 0 ? void 0 : products.map(function (product) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("tr", {
+      key: product.id,
+      onClick: function onClick() {
+        console.log("product from render: ", product);
+        setAttributes({
+          chosenProduct: {
+            id: product.id,
+            name: product.name,
+            sku: product.sku,
+            images: product.images,
+            prices: product.prices,
+            priceHtml: product.price_html,
+            slug: product.slug,
+            isOnSale: product.on_sale
+          }
+        });
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("td", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("label", {
+      htmlFor: product.id
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("input", {
+      type: "radio",
+      id: product.id,
+      name: "chose-product",
+      value: product.name,
+      onChange: function onChange() {
+        console.log('on change event input');
+      }
+    }), product.name)));
+  }))));
 };
 registerBlockType('custom-blocks/card-product', {
   title: 'Card Product',
@@ -609,10 +660,14 @@ registerBlockType('custom-blocks/card-product', {
     },
     products: {
       type: 'array'
+    },
+    chosenProduct: {
+      type: 'object'
     }
   },
   edit: function edit(props) {
-    var title = props.attributes.title,
+    console.log('Props start of edit func: ', props);
+    var chosenProduct = props.attributes.chosenProduct,
       setAttributes = props.setAttributes,
       className = props.className;
     var _useState = useState(''),
@@ -621,41 +676,46 @@ registerBlockType('custom-blocks/card-product', {
       setSearchInput = _useState2[1];
     var _useState3 = useState([]),
       _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState3, 2),
-      searchResults = _useState4[0],
-      setSearchResults = _useState4[1];
+      fetchedProducts = _useState4[0],
+      setFetchedProducts = _useState4[1];
+    var _useState5 = useState(false),
+      _useState6 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState5, 2),
+      hasResolved = _useState6[0],
+      setHasResolved = _useState6[1];
+    useEffect(function () {
+      productsQuery({
+        search: searchInput
+      }).then(function (fetchedProducts) {
+        setFetchedProducts(fetchedProducts);
+        setHasResolved(true);
+      });
+    }, [searchInput]);
     var onTitleChange = function onTitleChange(newContent) {
       setAttributes({
         title: newContent
       });
     };
-    var onSearchInputChange = function onSearchInputChange(searchQuery) {
-      setSearchInput(searchQuery);
-    };
-    var onSelectProduct = function onSelectProduct(product) {
-      setAttributes({
-        productId: product.id,
-        productName: product.name
-      });
-    };
-    useEffect(function () {
-      products().then(function (fetchedProducts) {
-        console.log('effect run ', fetchedProducts);
-        setSearchResults({
-          products: fetchedProducts
-        });
-      });
-    }, [searchInput]);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Panel, {
       header: "Block Settings"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: "Product",
       initialOpen: true
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SearchControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelRow, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "block-editor-input-no-margin"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SearchControl, {
       __nextHasNoMarginBottom: true,
       label: __('Search posts'),
       value: searchInput,
-      onChange: onSearchInputChange
-    }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      onChange: setSearchInput,
+      style: {
+        'marginBottom': '0'
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ProductsList, {
+      hasResolved: hasResolved,
+      products: fetchedProducts,
+      setFetchedProducts: setFetchedProducts,
+      setAttributes: setAttributes
+    })))))), chosenProduct && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "product-component-wrapper"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "product-component"
@@ -663,49 +723,42 @@ registerBlockType('custom-blocks/card-product', {
       className: "product-component__img",
       href: "#"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
-      src: "",
-      alt: "asdas"
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+      src: chosenProduct.images && chosenProduct.images[0].src,
+      alt: ""
+    }), chosenProduct.isOnSale && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: "product-component__img-sale onsale"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
-      tagName: "span",
-      className: "product-component__img-sale-text",
-      onChange: onTitleChange,
-      value: title,
-      placeholder: __('Write your custom product message', 'custom-gutenberg-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    }, "Akcija")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "product-component__info"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: "product-component__sku"
-    }, "sku"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("p", {
+    }, chosenProduct.sku), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("p", {
       className: "product-component__name",
-      title: "Proizvod: <?php echo '$productName'; ?>"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
-      href: "<?php echo '$productLink'; ?>"
-    }, "product name")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      title: "Proizvod: ".concat(chosenProduct.name)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", null, chosenProduct.name)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "product-component__price-holder"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("p", {
-      className: "product-component__price"
-    }, "price")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component__price",
+      dangerouslySetInnerHTML: {
+        __html: chosenProduct.priceHtml
+      }
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "product-component__buttons"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
-      href: "<?php echo '$productLink'; ?>",
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: "button button--inverse"
-    }, "Vi\u0161e"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
-      className: "product-component__buttons-btn button ajax_add_to_cart add_to_cart_button",
-      href: "#",
-      value: "####",
-      "data-quantity": "1",
-      "data-product_id": "<?php echo '$productId'; ?>",
-      "data-product_sku": "<?php echo '$productSku'; ?>",
-      "aria-label": "Dodaj \u201C<?php echo '$productName'; ?>\u201D u Va\u0161u korpu."
+    }, "Vi\u0161e"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+      className: "product-component__buttons-btn button ajax_add_to_cart add_to_cart_button"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: "product-component__buttons-btn-text"
-    }, "Dodaj u korpu"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      className: "product-component__buttons-btn-loader"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
-      className: "loader"
-    }))))))));
+    }, "Dodaj u korpu")))))) || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component-wrapper"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "product-component"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      style: {
+        'padding': '1.75rem 0',
+        'textAlign': 'center'
+      }
+    }, "Choose a product from the sidebar..."))));
   },
   save: function save() {
     return null;
@@ -1028,12 +1081,15 @@ __webpack_require__.r(__webpack_exports__);
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
   InnerBlocks = _wp$blockEditor.InnerBlocks,
-  RichText = _wp$blockEditor.RichText;
+  RichText = _wp$blockEditor.RichText,
+  useBlockProps = _wp$blockEditor.useBlockProps,
+  useInnerBlocksProps = _wp$blockEditor.useInnerBlocksProps;
 var _wp$components = wp.components,
   TextControl = _wp$components.TextControl,
   SearchControl = _wp$components.SearchControl;
 var __ = wp.i18n.__;
 registerBlockType('custom-blocks/products', {
+  apiVersion: 2,
   title: 'Products',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -1096,13 +1152,22 @@ registerBlockType('custom-blocks/products', {
     var title = props.attributes.title,
       setAttributes = props.setAttributes,
       className = props.className;
-    var ALLOWED_BLOCKS = ['custom-blocks/card-product'];
+    var TEMPLATE = ['custom-blocks/card-product'];
+    var blockProps = useBlockProps();
+    var innerBlocksProps = useInnerBlocksProps(blockProps, {
+      allowedBlocks: TEMPLATE,
+      template: TEMPLATE,
+      templateLock: false,
+      renderAppender: function renderAppender() {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    });
     var onTitleChange = function onTitleChange(newContent) {
       setAttributes({
         title: newContent
       });
     };
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "block-products"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "container"
@@ -1116,12 +1181,7 @@ registerBlockType('custom-blocks/products', {
       className: "block-products-slider"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "block-products-wrapper products-tabs-wrapper"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
-      allowedBlocks: ALLOWED_BLOCKS,
-      renderAppender: function renderAppender() {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
-      }
-    }))))));
+    }, innerBlocksProps.children)))));
   },
   save: function save() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
