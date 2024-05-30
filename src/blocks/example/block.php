@@ -11,11 +11,6 @@ class Example_Block {
         }
 
         register_block_type('custom-blocks/example', [
-            'attributes' => [
-                'title' => [
-                    'type' => 'string',
-                ]
-            ],
             'render_callback' => [$this, 'render_example_block'],
             'editor_script'   => 'custom-gutenberg-js',
             'editor_style'    => 'custom-gutenberg-css',
@@ -39,7 +34,7 @@ class Example_Block {
             <div class="container">
                 <?php if ($blockTitle) : ?>
                     <h2 class="block-example__text">
-                        <?php echo $blockTitle; ?>
+                        <?php echo esc_html($blockTitle); ?>
                     </h2>
                 <?php endif; ?>
             </div>

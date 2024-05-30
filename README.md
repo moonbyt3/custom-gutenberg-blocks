@@ -7,6 +7,6 @@ Install and activate the plugin on plugins page in WordPress
 
 ## Develop new blocks
 
-In terminal go to `./wp-content/plugins/`
+In terminal go to `./wp-content/plugins/custom-gutenberg-blocks`
 
-Run `npm start`
+Run `npm install && npm start`
